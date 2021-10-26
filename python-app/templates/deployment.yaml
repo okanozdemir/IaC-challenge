@@ -36,7 +36,7 @@ spec:
           env:
           - name: MYSQL_USERNAME
             value: "root"
-          - name: MYSQL_USERNAME
+          - name: MYSQL_PASSWORD
             value: {{ .Values.MYSQL_PASSWORD }}
           - name: MYSQL_INSTANCE_NAME
             value: "app_database"
