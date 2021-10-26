@@ -68,4 +68,4 @@ jobs:
           helm repo add bitnami https://charts.bitnami.com/bitnami --kubeconfig=./terraform/.kube/config && \
           helm upgrade -i mysql bitnami/mysql --set auth.rootPassword="${{ secrets.MYSQL_PASSWORD }}",auth.database="app_database" --kubeconfig=./terraform/.kube/config && \
           helm upgrade -i python-app ./python-app --set MYSQL_PASSWORD="${{ secrets.MYSQL_PASSWORD }}",image.tag=${{ github.run_number }} --kubeconfig=./terraform/.kube/config && \
-          echo "Application live at http://$(kubectl --kubeconfig=./terraform/.kube/config get svc app-chart --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }})"
+          echo "Application live at http://$(kubectl --kubeconfig=./terraform/.kube/config get svc app-chart --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")"
