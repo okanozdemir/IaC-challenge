@@ -24,7 +24,7 @@ RUN apk add --no-cache \
 COPY --from=builder /install /usr/
 
 RUN mkdir /app
-COPY app.py /app
+COPY app.py wsgi.py /app/
 WORKDIR /app
 
-CMD ["gunicorn", "app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:3000", "wsgi:application"]
