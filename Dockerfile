@@ -18,7 +18,8 @@ FROM base
 
 RUN apk add --no-cache \
        python3 \
-       py3-gunicorn
+       py3-gunicorn \
+       mariadb-connector-c
 
 COPY --from=builder /install /usr/
 
