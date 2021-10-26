@@ -61,10 +61,10 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.TF_VAR_ecr_name }}:${{ github.run_id }} ${{ steps.login-ecr.outputs.registry }}/${{ secrets.TF_VAR_ecr_name }}:latest
+          tags: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.TF_VAR_ecr_name }}:${{ github.run_number }},${{ steps.login-ecr.outputs.registry }}/${{ secrets.TF_VAR_ecr_name }}:latest
           
       - name: Deploy with Helm
         run: |
           helm repo add bitnami https://charts.bitnami.com/bitnami --kubeconfig=./terraform/.kube/config && \
           helm upgrade -i mysql bitnami/mysql --set auth.rootPassword="${{ secrets.MYSQL_PASSWORD }}",auth.database="app_database" --kubeconfig=./terraform/.kube/config && \
-          helm upgrade -i python-app ./python-app --set MYSQL_PASSWORD="${{ secrets.MYSQL_PASSWORD }}",image.tag={{ github.run_id }} --kubeconfig=./terraform/.kube/config
+          helm upgrade -i python-app ./python-app --set MYSQL_PASSWORD="${{ secrets.MYSQL_PASSWORD }}",image.tag={{ github.run_number }} --kubeconfig=./terraform/.kube/config
